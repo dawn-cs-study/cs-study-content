@@ -1,0 +1,50 @@
+name: Content & App (parallel when needed)
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      md: ${{ steps.changes.outputs.md }}
+      app: ${{ steps.changes.outputs.app }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            md:
+              - 'src/main/resources/docs/**/*.md'
+            app:
+              - 'src/main/java/**'
+              - 'build.gradle'
+              - 'settings.gradle'
+              - 'gradle/**'
+
+  md_s3_sync: # md 변경시 S3에 변경내용 재업로드, ETag(객체 해시/MD5)와 파일 크기를 기준으로 로컬 md와 s3 md를 비교
+    needs: detect
+    if: needs.detect.outputs.md == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Sync MD to S3
+        env:
+          DOCS_BUCKET: ${{ secrets.DOCS_BUCKET }}
+        run: |
+          aws s3 sync src/main/resources/docs s3://$DOCS_BUCKET/docs \
+            --delete \
+            --exact-timestamps
+
+
+#  app_build_deploy:
+#    needs: detect
+#    if: needs.detect.outputs.app == 'true'  JAR 부분만 말아서 이미지 올리기
+#    runs-on: ubuntu-latest
