@@ -1,4 +1,15 @@
+---
+title: "Thread vs Process"
+category: "os"
+tags: ["process","thread","scheduling"]
+slug: "os-thread-vs-process"
+publishedAt: "2025-08-01"
+summary: "프로세스와 스레드의 차이와 스케줄링 개요"
+---
+
 # 사용자 가이드 (v1)
+
+# 본문 시작 
 
 > 이 문서는 **CommonMark 기본 문법**과 **GFM 확장**(테이블/체크박스/취소선/오토링크) 샘플을 포함합니다.
 
