@@ -40,7 +40,7 @@ jobs:
         env:
           DOCS_BUCKET: ${{ secrets.BUCKET_NAME }}
         run: |
-          aws s3 sync src/main/resources/docs s3://BUCKET_NAME/docs \
+          aws s3 sync src/main/resources/docs s3://BUCKET_NAME/ \
             --delete \
             --exact-timestamps
 
