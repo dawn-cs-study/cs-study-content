@@ -1,11 +1,4 @@
----
-title: "Thread vs Process"
-category: "os"
-tags: ["process","thread","scheduling"]
-slug: "os-thread-vs-process"
-publishedAt: "2025-08-01"
-summary: "프로세스와 스레드의 차이와 스케줄링 개요"
----
+# 테스트 v1
 
 # 사용자 가이드 (v1)
 
