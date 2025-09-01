@@ -40,9 +40,10 @@ jobs:
         env:
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
-          aws s3 sync src/main/resources/docs s3://BUCKET_NAME/ \
+          aws s3 sync src/main/resources/docs "s3://BUCKET_NAME/" \
             --delete \
-            --exact-timestamps
+            --exact-timestamps \
+            --region "$AWS_REGION"
 
 
 #  app_build_deploy:
