@@ -38,7 +38,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Sync MD to S3
         env:
-          DOCS_BUCKET: ${{ secrets.BUCKET_NAME }}
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           aws s3 sync src/main/resources/docs s3://BUCKET_NAME/ \
             --delete \
