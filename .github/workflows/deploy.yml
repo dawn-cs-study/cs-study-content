@@ -7,7 +7,7 @@ jobs:
   detect:
     runs-on: ubuntu-latest
     outputs:
-      md: ${{ steps.changes.outputs.md }}
+      content: ${{ steps.changes.outputs.content }}
       app: ${{ steps.changes.outputs.app }}
     steps:
       - uses: actions/checkout@v4
@@ -16,8 +16,9 @@ jobs:
         id: changes
         with:
           filters: |
-            md:
+            content:
               - 'src/main/resources/docs/**/*.md'
+              - 'src/main/resources/docs/**/*.json'
             app:
               - 'src/main/java/**'
               - 'build.gradle'
@@ -26,7 +27,7 @@ jobs:
 
   md_s3_sync: # md 변경시 S3에 변경내용 재업로드, ETag(객체 해시/MD5)와 파일 크기를 기준으로 로컬 md와 s3 md를 비교
     needs: detect
-    if: needs.detect.outputs.md == 'true'
+    if: needs.detect.outputs.content == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,9 +38,9 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Sync MD to S3
         env:
-          DOCS_BUCKET: ${{ secrets.DOCS_BUCKET }}
+          DOCS_BUCKET: ${{ secrets.BUCKET_NAME }}
         run: |
-          aws s3 sync src/main/resources/docs s3://$DOCS_BUCKET/docs \
+          aws s3 sync src/main/resources/docs s3://BUCKET_NAME/docs \
             --delete \
             --exact-timestamps
 
