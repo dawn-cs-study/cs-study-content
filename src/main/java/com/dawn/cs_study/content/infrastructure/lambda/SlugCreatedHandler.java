@@ -35,6 +35,8 @@ public class SlugCreatedHandler implements RequestHandler<S3Event, String> {
     public String handleRequest(S3Event event, Context ctx) {
         var log = ctx.getLogger();
 
+        log.log("start");
+
         for (S3EventNotification.S3EventNotificationRecord r : event.getRecords()) {
             final String eventName = r.getEventName(); // ex) ObjectCreated:Put
             final String bucket = r.getS3().getBucket().getName();
