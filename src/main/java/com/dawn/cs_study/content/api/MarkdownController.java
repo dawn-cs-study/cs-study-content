@@ -1,6 +1,7 @@
 package com.dawn.cs_study.content.api;
 
-import com.dawn.cs_study.content.application.ContentReaderService;
+import com.dawn.cs_study.content.application.ReadSlugService;
+import com.dawn.cs_study.content.application.RenderMarkdownService;
 import com.dawn.cs_study.content.domain.Slug;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MarkdownController {
 
-    private final ContentReaderService contentReaderService;
+    private final ReadSlugService readSlugService;
+    private final RenderMarkdownService renderMarkdownService;
 
     @GetMapping("/favicon.ico")
     public void favicon() {
@@ -26,13 +28,13 @@ public class MarkdownController {
         // 2. 결과물 CDN 으로 업로드 후 제공
 
         // 현재는 S3에서 가져오는 중
-        return contentReaderService.renderHtml("cs/content/os/test.md");
+        return renderMarkdownService.renderHtml("cs/content/os/test.md");
     }
 
 
     @GetMapping("dd")
     public Slug slug() {
-        return contentReaderService.readSlug("cs/content/os/test.json");
+        return readSlugService.readSlug("cs/content/os/test.json");
     }
 
 }
