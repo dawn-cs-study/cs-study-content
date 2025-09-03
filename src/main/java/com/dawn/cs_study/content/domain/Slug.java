@@ -6,7 +6,6 @@ public record Slug(
         String title,
         String category,
         List<String> tags,
-        String author,
-        String updatedAt
+        String author
 ) {
 }
