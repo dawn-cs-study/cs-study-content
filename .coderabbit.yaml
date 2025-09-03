@@ -1,5 +1,5 @@
 language: "ko-KR"
-tone_instructions: "friendly but precise" # 리뷰/채팅 톤 지정.
+tone_instructions: "friendly but precise"   # 리뷰/채팅 톤 지정.
 
 early_access: false
 enable_free_tier: true           # 무료 플랜 활성화 여부. true로 두면 Free Tier에서도 동작
@@ -12,13 +12,9 @@ reviews:
   auto_review:
     enabled: true                # PR 생성 시 자동으로 리뷰 시작 여부 (true/false)
     drafts: false                # Draft PR도 자동 리뷰할지 여부 (true/false)
-  tools:                         # 린트/보안 툴 연동
-    eslint:
-      enabled: true              # ESLint 리뷰 활성화 여부
+  tools: # 린트/보안 툴 연동
     gitleaks:
       enabled: true              # GitLeaks(비밀키, 민감정보 탐지) 활성화 여부
-    # 다른 예시: bandit(Python 보안 린터), flake8(Python 스타일체커), markdownlint 등
-
-path_filters:
-  - "!**/*.bin"                  # 리뷰에서 제외할 파일 패턴. 여기서는 모든 .bin 파일 제외
-  - "src/**"                     # 리뷰에 포함할 파일 패턴. 여기서는 src 디렉토리만 리뷰
+  path_filters:
+    - "!**/*.bin"                  # 리뷰에서 제외할 파일 패턴. 여기서는 모든 .bin 파일 제외
+    - "src/**"                     # 리뷰에 포함할 파일 패턴. 여기서는 src 디렉토리만 리뷰
