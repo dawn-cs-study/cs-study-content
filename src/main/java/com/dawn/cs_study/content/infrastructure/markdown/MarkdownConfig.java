@@ -1,4 +1,4 @@
-package com.dawn.cs_study.content;
+package com.dawn.cs_study.content.infrastructure.markdown;
 
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
