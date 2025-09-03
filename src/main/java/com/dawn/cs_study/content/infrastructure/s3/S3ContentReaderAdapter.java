@@ -6,9 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.S3Object;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 public class S3ContentReaderAdapter implements ContentReaderPort {
 
     private final S3Client s3Client;
+
+    private final ObjectMapper objectMapper;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -29,7 +33,7 @@ public class S3ContentReaderAdapter implements ContentReaderPort {
     public <T> T readJson(String key, Class<T> type) {
         String json = readAsString(key);
         try {
-            return new ObjectMapper().readValue(json, type);
+            return objectMapper.readValue(json, type);
         } catch (IOException e) {
             throw new RuntimeException("JSON 파싱 실패: " + key, e);
         }
