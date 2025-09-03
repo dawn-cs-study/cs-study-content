@@ -1,12 +1,12 @@
 package com.dawn.cs_study.content.infrastructure.s3;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.S3Object;
 import com.dawn.cs_study.content.application.port.out.ContentReaderPort;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.io.*;
 import java.util.stream.Collectors;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class S3ContentReaderAdapter implements ContentReaderPort {
 
-    private final AmazonS3Client s3Client;
+    private final S3Client s3Client;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -36,9 +36,8 @@ public class S3ContentReaderAdapter implements ContentReaderPort {
     }
 
     private String readAsString(String key) {
-        S3Object s3Object = s3Client.getObject(bucket, key);
-        try (BufferedReader reader =
-                     new BufferedReader(new InputStreamReader(s3Object.getObjectContent()))) {
+        try (var inputStream = s3Client.getObject(r -> r.bucket(bucket).key(key));
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             return reader.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
