@@ -4,6 +4,6 @@ public interface ContentReaderPort {
 
     String readText(String key);
 
-    <T> T readJson(String key,Class<T> type);
+    <T> T readJson(String key, Class<T> type);
 
 }

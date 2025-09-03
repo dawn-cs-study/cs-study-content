@@ -1,7 +1,5 @@
 package com.dawn.cs_study.content.api;
 
-import com.dawn.cs_study.content.application.ReadSlugService;
-import com.dawn.cs_study.content.application.RenderMarkdownService;
 import com.dawn.cs_study.content.application.port.in.ReadSlugUseCase;
 import com.dawn.cs_study.content.application.port.in.RenderMarkdownUseCase;
 import com.dawn.cs_study.content.domain.Slug;

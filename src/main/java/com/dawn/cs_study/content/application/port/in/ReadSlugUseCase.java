@@ -4,6 +4,6 @@ import com.dawn.cs_study.content.domain.Slug;
 
 public interface ReadSlugUseCase {
 
-    Slug readSlug(String key);
+    Slug readSlug(String slugName);
 
 }

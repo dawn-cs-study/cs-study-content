@@ -13,7 +13,7 @@ public class ReadSlugService implements ReadSlugUseCase {
     private final ContentReaderPort contentReaderPort;
 
     @Override
-    public Slug readSlug(String key) {
-        return contentReaderPort.readJson(key, Slug.class);
+    public Slug readSlug(String slugName) {
+        return contentReaderPort.readJson(slugName, Slug.class);
     }
 }
