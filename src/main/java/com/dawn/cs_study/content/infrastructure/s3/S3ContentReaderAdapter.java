@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,8 +42,8 @@ public class S3ContentReaderAdapter implements ContentReaderPort {
     }
 
     private String readAsString(String key) {
-        try (var inputStream = s3Client.getObject(r -> r.bucket(bucket).key(key));
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        try (ResponseInputStream<GetObjectResponse> object = s3Client.getObject(r -> r.bucket(bucket).key(key));
+             BufferedReader reader = new BufferedReader(new InputStreamReader(object))) {
             return reader.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
