@@ -4,7 +4,7 @@ public final class HtmlPage {
     private static final String DEFAULT_LANG = "ko";
     private static final String DEFAULT_CHARSET = "UTF-8";
     private static final String DEFAULT_VIEWPORT = "width=device-width, initial-scale=1";
-    private static final String CSS_MARKDOWN = "/styles/markdown.css";
+    private static final String CSS_MARKDOWN = "/styles/article-style.css";
     private static final String CSS_PRISM = "/styles/prism.css";
     private static final String JS_PRISM = "/scripts/prism.js";
 
