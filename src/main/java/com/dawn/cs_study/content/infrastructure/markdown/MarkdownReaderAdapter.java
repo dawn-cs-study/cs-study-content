@@ -2,6 +2,7 @@ package com.dawn.cs_study.content.infrastructure.markdown;
 
 
 import com.dawn.cs_study.content.application.port.out.MarkdownReaderPort;
+import com.dawn.cs_study.content.domain.HtmlPage;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class MarkdownReaderAdapter implements MarkdownReaderPort {
 
     @Override
     public String toHtml(String md) {
-        return renderer.render(parser.parse(md));
+        return HtmlPage.of(renderer.render(parser.parse(md))).render();
     }
 
 }
