@@ -36,20 +36,15 @@ dependencies {
     // aws-lambda
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.2'
-    implementation 'software.amazon.awssdk:s3:2.28.29'
 
     // spring cloud aws
-    implementation "io.awspring.cloud:spring-cloud-aws-starter:3.4.0"
-    implementation "io.awspring.cloud:spring-cloud-aws-starter-s3:3.4.0"
-
-    //
-//    implementation 'software.amazon.awssdk:ssm:2.20.3'
-//    implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
-
+    implementation platform('io.awspring.cloud:spring-cloud-aws-dependencies:3.4.0')
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
 
     // JPA , MySQL
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("com.mysql:mysql-connector-j:8.4.0") // 최신 안정화 버전
+    implementation("com.mysql:mysql-connector-j:8.4.0")
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 

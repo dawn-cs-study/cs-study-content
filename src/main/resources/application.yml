@@ -4,8 +4,11 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
+  config:
+    import: "aws-parameterstore:/config/dawn-cs-study/"
+
   datasource:
-    url: ${db.url}
+    url: ${db-url}
     username: ${db-user}
     password: ${db-password}
     hikari:
@@ -15,7 +18,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update           # dev: update, prod: validate
+      ddl-auto: none
     open-in-view: false
     properties:
       hibernate.format_sql: true
@@ -30,13 +33,6 @@ spring:
         static: ap-northeast-2
       s3:
         bucket: ${bucket-name}
-      credentials:
-        access-key: ${access-key}
-        secret-key: ${secret-key}
-
-#  config:
-#    import: "aws-parameterstore:{추후 추가}"
-
 
 logging:
   level:
