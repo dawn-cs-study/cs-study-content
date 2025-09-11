@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       content: ${{ steps.changes.outputs.content }}
-      app: ${{ steps.changes.outputs.app }}
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -19,11 +18,6 @@ jobs:
             content:
               - 'src/main/resources/docs/**/*.md'
               - 'src/main/resources/docs/**/*.json'
-            app:
-              - 'src/main/java/**'
-              - 'build.gradle'
-              - 'settings.gradle'
-              - 'gradle/**'
 
   md_s3_sync: # md 변경시 S3에 변경내용 재업로드, ETag(객체 해시/MD5)와 파일 크기를 기준으로 로컬 md와 s3 md를 비교
     needs: detect
@@ -44,9 +38,3 @@ jobs:
             --delete \
             --exact-timestamps \
             --region "$AWS_REGION"
-
-
-#  app_build_deploy:
-#    needs: detect
-#    if: needs.detect.outputs.app == 'true'  JAR 부분만 말아서 이미지 올리기
-#    runs-on: ubuntu-latest
