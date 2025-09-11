@@ -1,9 +1,3 @@
-좋습니다 👍
-README 스타일 설명 안에 샘플 코드 블록(Java, Gradle, SpringBoot) 을 포함시켜서 꾸며드릴게요.
-
-⸻
-
-
 # 🌅 여명 프로젝트 (Dawn Project)
 
 > **여명(Dawn)** 은 개발자들을 위한 **Markdown 기반 CS 지식 저장소 & 위키 플랫폼**입니다.  
